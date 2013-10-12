@@ -38,6 +38,7 @@ class analizador:
 		
 		print "term -> Token = ", self.expresion[self.indice]
 		self.factor()
+		print "aquiiiiiii -> Token = ", self.expresion[self.indice]
 		self.subTerm()
 		
 		
@@ -46,7 +47,8 @@ class analizador:
 		
 		if self.expresion[self.indice] in self.alfabeto:
 			print "alfabeto -> Token = ", self.expresion[self.indice]
-			self.indice = self.indice+1
+			if (self.indice+1)<len(self.expresion):
+				self.indice = self.indice+1
 		elif self.expresion[self.indice] == '(':
 			print "Parentesis Abierto -> Token = ("
 			self.indice = self.indice+1
@@ -56,10 +58,13 @@ class analizador:
 				print 'Error de sintaxis, se esperaba: )'
 				exit()
 			print "Parentesis Cerrado -> Token = )"
+			if (self.indice+1)<len(self.expresion):
+				self.indice = self.indice+1
 			
 		if self.expresion[self.indice] in self.operUnario:
 			print "operacionUnaria -> Token = ", self.expresion[self.indice]
-			self.indice = self.indice+1
+			if (self.indice+1)<len(self.expresion):
+				self.indice = self.indice+1
 			
 			
 	def subExpr(self):
@@ -79,7 +84,7 @@ class analizador:
 		
 		print "operadorBinaria -> Token = ."
 		self.indice = self.indice+1
-		self.factor
+		self.factor()
 		self.subTerm()
 		
 		
