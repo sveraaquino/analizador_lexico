@@ -1,3 +1,8 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from thompson import *
+
 class analizador:
 	def __init__(self,alfabeto,expresion):
 		self.alfabeto = alfabeto
@@ -5,6 +10,7 @@ class analizador:
 		self.operUnario = '+*?'
 		self.operadores = '+*?.|'
 		self.indice = 0
+		self.postfija=[]
 		
 	def check_expresion(self):
 		leng=len(self.expresion)
@@ -24,6 +30,7 @@ class analizador:
 		if self.check_expresion():
 			self.expr()	
 			print 'Expresion regular correcta'
+			print 'Postfija',self.postfija
 		else:
 			print 'La expresion regular no esta contenida en el alfabeto de entrada'
 	
@@ -38,7 +45,6 @@ class analizador:
 		
 		print "term -> Token = ", self.expresion[self.indice]
 		self.factor()
-		print "aquiiiiiii -> Token = ", self.expresion[self.indice]
 		self.subTerm()
 		
 		
@@ -48,6 +54,7 @@ class analizador:
 		if self.expresion[self.indice] in self.alfabeto:
 			print "alfabeto -> Token = ", self.expresion[self.indice]
 			if (self.indice+1)<len(self.expresion):
+				self.postfija.append(self.expresion[self.indice])
 				self.indice = self.indice+1
 		elif self.expresion[self.indice] == '(':
 			print "Parentesis Abierto -> Token = ("
@@ -63,6 +70,7 @@ class analizador:
 			
 		if self.expresion[self.indice] in self.operUnario:
 			print "operacionUnaria -> Token = ", self.expresion[self.indice]
+			self.postfija.append(self.expresion[self.indice])
 			if (self.indice+1)<len(self.expresion):
 				self.indice = self.indice+1
 			
@@ -73,8 +81,10 @@ class analizador:
 			return
 		
 		print "operadorBinaria -> Token = |"
+		
 		self.indice = self.indice+1
 		self.term()
+		self.postfija.append('|')
 		self.subExpr()
 		
 		
@@ -85,6 +95,7 @@ class analizador:
 		print "operadorBinaria -> Token = ."
 		self.indice = self.indice+1
 		self.factor()
+		self.postfija.append('.')
 		self.subTerm()
 		
 		
@@ -92,5 +103,9 @@ alfa=raw_input('Introduzca el alfabeto:')
 expre=raw_input('Introduzca la expresion regular:')
 defi= analizador(alfa,expre)
 defi.validar_expresion()
+
+thomp = Thompson(defi.postfija)
+thomp.start()
+
 		
 	
