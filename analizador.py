@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from thompson import *
+from subconjunto import *
 
 class analizador:
 	def __init__(self,alfabeto,expresion):
@@ -105,7 +106,9 @@ defi= analizador(alfa,expre)
 defi.validar_expresion()
 
 thomp = Thompson(defi.postfija)
-thomp.start()
+afn = thomp.start()
+subconj = Subconjuntos(afn,defi.alfabeto)
+afd=subconj.start_subconjutos()
 
 		
 	
