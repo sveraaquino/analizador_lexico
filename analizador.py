@@ -3,6 +3,8 @@
 
 from thompson import *
 from subconjunto import *
+from minimo import *
+from validador import *
 
 class analizador:
 	def __init__(self,alfabeto,expresion):
@@ -54,9 +56,10 @@ class analizador:
 		
 		if self.expresion[self.indice] in self.alfabeto:
 			print "alfabeto -> Token = ", self.expresion[self.indice]
+			self.postfija.append(self.expresion[self.indice])
 			if (self.indice+1)<len(self.expresion):
-				self.postfija.append(self.expresion[self.indice])
 				self.indice = self.indice+1
+			
 		elif self.expresion[self.indice] == '(':
 			print "Parentesis Abierto -> Token = ("
 			self.indice = self.indice+1
@@ -109,6 +112,12 @@ thomp = Thompson(defi.postfija)
 afn = thomp.start()
 subconj = Subconjuntos(afn,defi.alfabeto)
 afd=subconj.start_subconjutos()
+opMinimo = AFD(afd)
+minimo = opMinimo.minimizar()
+
+#~ secuencia=raw_input('Introduzca la secuencia de caracteres:')
+#~ afd2 = validadorAFD(minimo, secuencia)
+#~ afd2.next_state()
 
 		
 	

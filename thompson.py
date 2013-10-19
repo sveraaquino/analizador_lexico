@@ -37,7 +37,7 @@ class Thompson :
         
 		self.automatas[0].estado_final.final = True
 		
-		print 'tamano',len(self.automatas)
+		
 		print '---------Thompson---------------'
 		print self.automatas[0]
 
