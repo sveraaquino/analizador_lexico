@@ -31,6 +31,9 @@ class Estado:
         
 		return self.final
 
+	def get_id(self):
+		return self.id
+
 	def set_final(self, final):
        
 		self.final = final
@@ -48,6 +51,15 @@ class Arco:
 		self.simbolo = simbolo
 		self.origen = origen
 		self.destino = destino
+
+	def get_simbolo(self):
+		return self.simbolo
+
+	def get_origen(self):
+		return self.origen
+
+	def get_destino(self):
+		return self.destino
 
 	def copy(self):
         
@@ -77,6 +89,10 @@ class Automata :
 		self.arcos = []
 		self.simbolos = {}
 
+	def get_estados_ordenados(self):
+		self.__ordenar_estados__()
+		return self.estados_ordenados
+	
 	def add_arcos(self, arcos) :
 
 		for arco in arcos :
@@ -89,12 +105,18 @@ class Automata :
 
 		self.estados[estado.id] = estado
 
+
+	def get_arcos(self):
+		return self.arcos
+
+
 	def add_estado_inicial(self, estado):
 
 		self.estado_inicial = estado
 		self.__add_estado(estado)
 
 	def get_estado_inicial(self):
+		
 		return self.estado_inicial
 
 	def add_estado_final(self, estado):

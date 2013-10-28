@@ -5,6 +5,8 @@ from thompson import *
 from subconjunto import *
 from minimo import *
 from validador import *
+from codigo import *
+from grafico import *
 
 class analizador:
 	def __init__(self,alfabeto,expresion):
@@ -115,9 +117,24 @@ afd=subconj.start_subconjutos()
 opMinimo = AFD(afd)
 minimo = opMinimo.minimizar()
 
-#~ secuencia=raw_input('Introduzca la secuencia de caracteres:')
-#~ afd2 = validadorAFD(minimo, secuencia)
-#~ afd2.next_state()
+secuencia=raw_input('Introduzca la secuencia de caracteres:')
+afd2 = validadorAFD(minimo, secuencia)
+
+while afd2.next_state():
+	a=1
+	
+generate = codigo(minimo)
+generate.imprimir()
+
+svg = graficoAutomata('images/afn.svg')
+svg.gen_svg_from_automata(afn)
+svg = graficoAutomata('images/afd.svg')
+svg.gen_svg_from_automata(afd)
+svg = graficoAutomata('images/afdm.svg')
+svg.gen_svg_from_automata(minimo)
+	
+
+
 
 		
 	
